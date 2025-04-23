@@ -1,4 +1,4 @@
-package it.rf.gestlido;
+package it.rf.biblioteca;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
