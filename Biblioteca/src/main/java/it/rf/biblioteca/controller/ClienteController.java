@@ -1,11 +1,14 @@
 package it.rf.biblioteca.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +27,7 @@ public class ClienteController {
 	private ClienteService cs;
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> effettuaLogin(@RequestBody LoginRequestDTO loginRequest)
+	public ResponseEntity<Cliente> effettuaLogin(@RequestBody LoginRequestDTO loginRequest)
 	{
 		System.out.println(loginRequest.getUser());
 		System.out.println(loginRequest.getPsw());
@@ -37,20 +40,21 @@ public class ClienteController {
 			{
 				System.out.println("effettuo il login");
 				//Response OK
-				return new ResponseEntity<String>("LOGIN EFFETTUATO",HttpStatus.OK);
+				Cliente c = cs.trovaByUsername(loginRequest.getUser()).get();
+				return new ResponseEntity<Cliente>(c,HttpStatus.OK);
 			}
 			else
 			{
 				System.out.println("psw errata");
 				//Response BAD REQUEST
-				return new ResponseEntity<String>("PASSWORD ERRATA",HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<Cliente>(HttpStatus.UNAUTHORIZED);
 			}
 		}
 		else {
 			//non ci sono user corrispondenti
 			System.out.println("no username compatibili");
 			//Response BAD REQUEST
-			return new ResponseEntity<String>("USERNAME NON ESISTENTE",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Cliente>(HttpStatus.BAD_REQUEST);
 		}
 		
 	}
@@ -81,6 +85,23 @@ public class ClienteController {
 		{
 			return new ResponseEntity<Cliente>(c,HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	
+	@GetMapping("/visualizzoDati/{username}")
+	public ResponseEntity<Cliente> visualizzoDati(@PathVariable String username)
+	{
+		System.out.println("nome: " + username);
+		Optional<Cliente> c = cs.trovaByUsername(username);
+		if(c.isPresent()) {
+			return new ResponseEntity<Cliente>(c.get(),HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<Cliente>(HttpStatus.NO_CONTENT);
+		}
+		
+		
 	}
 
 }
