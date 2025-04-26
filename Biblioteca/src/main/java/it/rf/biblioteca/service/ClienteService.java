@@ -20,6 +20,11 @@ public class ClienteService {
 		return this.cr.save(c);
 	}
 	
+	public Cliente modificaCliente(Cliente c)
+	{
+		return this.cr.save(c);
+	}
+	
 	public Integer countUser(String usernameCliente)
 	{
 		

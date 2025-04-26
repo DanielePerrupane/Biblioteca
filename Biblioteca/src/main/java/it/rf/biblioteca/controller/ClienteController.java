@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,13 +62,6 @@ public class ClienteController {
 	
 	@PostMapping("/registraCliente")
 	public ResponseEntity<Cliente> registraCliente(@RequestBody Cliente c) {
-//		System.out.println("nome: "+c.getNomeCliente());
-//		System.out.println("cognome: "+c.getCognomeCliente());
-//		System.out.println("cf: "+c.getCfCliente());
-//		System.out.println("email: "+c.getEmailCliente());
-//		System.out.println("ntel: "+c.getNumTelCliente());
-//		System.out.println("user: "+c.getUsernameCliente());
-//		System.out.println("psw: "+c.getPswCliente()); 
 		
 		if(cs.countCf(c.getCfCliente()).equals(0) && cs.countUser(c.getUsernameCliente()).equals(0))
 		{
@@ -101,6 +95,22 @@ public class ClienteController {
 			return new ResponseEntity<Cliente>(HttpStatus.NO_CONTENT);
 		}
 		
+		
+	}
+	
+	@PutMapping("/modificaCliente")
+	public ResponseEntity<Cliente> modificaCliente(@RequestBody Cliente c)
+	{
+		System.out.println(c.getNomeCliente());
+		System.out.println(c.getNumTelCliente());
+		if(!cs.modificaCliente(c).equals(null))
+		{
+			return new ResponseEntity<Cliente>(c,HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<Cliente>(c,HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		
 	}
 
