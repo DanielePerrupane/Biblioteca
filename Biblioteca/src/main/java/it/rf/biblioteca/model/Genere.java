@@ -2,6 +2,8 @@ package it.rf.biblioteca.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Genere {
 	private String nomeGenere;
 	
 	@OneToMany(mappedBy="idLibro")
+	@JsonIgnore
 	private List<Libro> listaLibro;
 	
 	public Genere() {
