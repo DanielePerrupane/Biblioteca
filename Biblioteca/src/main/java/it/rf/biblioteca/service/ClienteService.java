@@ -44,7 +44,9 @@ public class ClienteService {
 	
 	public Optional<Cliente> trovaByUsername(String usernameCliente)
 	{
+		String ciao = "ciao";
 		return this.cr.findByUsernameCliente(usernameCliente);
+		
 	}
 
 }
