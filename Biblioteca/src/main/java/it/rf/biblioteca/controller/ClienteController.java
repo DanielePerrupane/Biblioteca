@@ -131,7 +131,7 @@ public class ClienteController {
 		Optional<Cliente> c = cs.trovaByUsername(username);
 		if(c.isPresent()) {
 			return new ResponseEntity<Cliente>(c.get(),HttpStatus.OK);
-		}
+		} 
 		else
 		{
 			return new ResponseEntity<Cliente>(HttpStatus.NO_CONTENT);
