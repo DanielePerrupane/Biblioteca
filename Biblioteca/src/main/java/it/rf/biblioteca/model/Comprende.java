@@ -32,6 +32,15 @@ public class Comprende {
 	public Comprende() {
 		
 	}
+	
+	public Comprende(String note, Boolean riconsegnato, Libro libro, Prenotazione prenotazione) {
+		
+		this.note=note;
+		this.riconsegnato=riconsegnato;
+		this.libro=libro;
+		this.prenotazione=prenotazione;
+		
+	}
 
 	public Comprende(Integer idComprende, String note, Boolean riconsegnato, Libro libro, Prenotazione prenotazione) {
 		super();

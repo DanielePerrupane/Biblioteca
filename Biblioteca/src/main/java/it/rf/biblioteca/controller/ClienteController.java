@@ -15,9 +15,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.rf.biblioteca.DTO.LibroDTO;
 import it.rf.biblioteca.DTO.LoginRequestDTO;
+import it.rf.biblioteca.DTO.PrenotazioneDTO;
 import it.rf.biblioteca.model.Cliente;
+import it.rf.biblioteca.model.Comprende;
+import it.rf.biblioteca.model.Libro;
+import it.rf.biblioteca.model.Prenotazione;
+import it.rf.biblioteca.model.StatoPrenotazione;
 import it.rf.biblioteca.service.ClienteService;
+import it.rf.biblioteca.service.ComprendeService;
+import it.rf.biblioteca.service.LibroService;
+import it.rf.biblioteca.service.PrenotazioneService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -26,6 +35,39 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteService cs;
+	@Autowired
+	private PrenotazioneService ps;
+	@Autowired 
+	private LibroService ls;
+	@Autowired
+	private ComprendeService cms;
+	
+	
+	@GetMapping("/prendiListaLibriPrenotati/{user}")
+	public ResponseEntity<List<LibroDTO>> prendiListaLibriPrenotati(@PathVariable String user)
+	{
+		Cliente c = cs.trovaByUsername(user).get();
+		return new ResponseEntity<List<LibroDTO>>(this.ls.prendiListaLibriPrenotati(c.getCfCliente()),HttpStatus.OK);
+	}
+	
+	@PostMapping("/prenotaLibro")
+	public ResponseEntity<PrenotazioneDTO> prenotaLibro(@RequestBody PrenotazioneDTO pDto) {
+		
+		System.out.println("------------------------------titolo: "+pDto.getTitoloLibro());
+		
+		Libro libro = ls.trovaLibro(pDto.getTitoloLibro());
+		
+		Cliente cliente = cs.trovaByUsername(pDto.getUsername()).get();
+		StatoPrenotazione statoPrenotazione = new StatoPrenotazione(1,"in corso");
+		Prenotazione p = new Prenotazione(pDto.getAcconto(),pDto.getDataInizio(),pDto.getDataFine(),pDto.getTotale(),cliente,statoPrenotazione);
+		ps.registraPrenotazione(p);
+		//creo comprende 
+		Comprende c = new Comprende("nessuna",false,libro,p);
+		cms.registraComprende(c);
+		
+		return new ResponseEntity<PrenotazioneDTO>(pDto,HttpStatus.CREATED);
+		
+	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<Cliente> effettuaLogin(@RequestBody LoginRequestDTO loginRequest)
@@ -103,14 +145,10 @@ public class ClienteController {
 	{
 		System.out.println(c.getNomeCliente());
 		System.out.println(c.getNumTelCliente());
-		if(!cs.modificaCliente(c).equals(null))
-		{
-			return new ResponseEntity<Cliente>(c,HttpStatus.OK);
-		}
-		else
-		{
-			return new ResponseEntity<Cliente>(c,HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+		System.out.println("----------------------------username: "+c.getUsernameCliente());
+		this.cs.modificaCliente(c);
+		
+		return new ResponseEntity<Cliente>(HttpStatus.OK);
 		
 	}
 

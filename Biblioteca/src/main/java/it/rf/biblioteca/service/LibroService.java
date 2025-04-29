@@ -1,12 +1,13 @@
 package it.rf.biblioteca.service;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import it.rf.biblioteca.DTO.LibroDTO;
 import it.rf.biblioteca.model.Libro;
 import it.rf.biblioteca.repository.LibroRepository;
 
@@ -16,12 +17,23 @@ public class LibroService {
 	@Autowired
 	private LibroRepository lr;
 	
+	
+	public List<LibroDTO> prendiListaLibriPrenotati(String cfCliente)
+	{
+		return this.lr.listaLibriPrenotati(cfCliente);
+	}
+	
 	public ResponseEntity<Libro> eliminaLibro(Integer idLibro)
 	{
 		
 		this.lr.deleteById(idLibro);
 		System.out.println("service");
 		return new ResponseEntity<Libro>(HttpStatus.OK);
+	}
+	
+	public Libro trovaLibro(String titolo)
+	{
+		return this.lr.findByTitoloLibro(titolo).get();
 	}
 	
 	public ResponseEntity<Libro> cercaLibro(String titolo)

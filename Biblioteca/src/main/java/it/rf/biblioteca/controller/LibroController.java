@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import it.rf.biblioteca.DTO.LibroDTO;
 import it.rf.biblioteca.model.Genere;
 import it.rf.biblioteca.model.Libro;
 import it.rf.biblioteca.service.GenereService;
@@ -29,6 +30,8 @@ public class LibroController {
 	private GenereService gs;
 	@Autowired 
 	private LibroService ls;
+	
+	
 	
 	
 	

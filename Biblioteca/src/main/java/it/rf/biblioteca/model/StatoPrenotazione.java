@@ -27,6 +27,12 @@ public class StatoPrenotazione {
 	public StatoPrenotazione() {
 		
 	}
+	
+	public StatoPrenotazione(Integer idStato,String nomeStato)
+	{
+		this.idStatoPrenotazione=idStato;
+		this.nomeStatoPrenotazione=nomeStato;
+	}
 
 	public StatoPrenotazione(Integer idStatoPrenotazione, String nomeStatoPrenotazione,
 			List<Prenotazione> listaPrenotazione) {
