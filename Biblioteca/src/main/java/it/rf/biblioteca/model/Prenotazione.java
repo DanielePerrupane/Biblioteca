@@ -52,6 +52,16 @@ public class Prenotazione {
 		this.cliente=cliente;
 		this.statoPrenotazione=statoPrenotazione;
 	}
+	
+	public Prenotazione(Integer idPrenotazione, Double acconto, LocalDate dataInizio, LocalDate dataFine, Double totale, Cliente cliente, StatoPrenotazione statoPrenotazione) {
+		this.idPrenotazione=idPrenotazione;
+		this.acconto=acconto;
+		this.dataInizioPrenotazione=dataInizio;
+		this.dataFinePrenotazione=dataFine;
+		this.totale=totale;
+		this.cliente=cliente;
+		this.statoPrenotazione=statoPrenotazione;
+	}
 
 	public Prenotazione(Integer idPrenotazione, Double acconto, LocalDate dataFinePrenotazione,
 			LocalDate dataInizioPrenotazione, Double totale, Cliente cliente, StatoPrenotazione statoPrenotazione,

@@ -1,5 +1,6 @@
 package it.rf.biblioteca.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,7 +60,9 @@ public class ClienteController {
 		
 		Cliente cliente = cs.trovaByUsername(pDto.getUsername()).get();
 		StatoPrenotazione statoPrenotazione = new StatoPrenotazione(1,"in corso");
-		Prenotazione p = new Prenotazione(pDto.getAcconto(),pDto.getDataInizio(),pDto.getDataFine(),pDto.getTotale(),cliente,statoPrenotazione);
+		LocalDate dataInizio = pDto.getDataInizio().toLocalDate();
+		LocalDate dataFine = pDto.getDataFine().toLocalDate();
+		Prenotazione p = new Prenotazione(pDto.getAcconto(),dataInizio,dataFine,pDto.getTotale(),cliente,statoPrenotazione);
 		ps.registraPrenotazione(p);
 		//creo comprende 
 		Comprende c = new Comprende("nessuna",false,libro,p);

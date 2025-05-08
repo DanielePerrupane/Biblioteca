@@ -17,6 +17,10 @@ public class LibroService {
 	@Autowired
 	private LibroRepository lr;
 	
+	public List<Libro> prendiLibri()
+	{
+		return this.lr.findAll();
+	}
 	
 	public List<LibroDTO> prendiListaLibriPrenotati(String cfCliente)
 	{

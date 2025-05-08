@@ -33,6 +33,11 @@ public class LibroController {
 	
 	
 	
+	@GetMapping("/prendiLibri")
+	public ResponseEntity<List<Libro>> prendiLibri()
+	{
+		return new ResponseEntity<List<Libro>>(this.ls.prendiLibri(),HttpStatus.OK);
+	}
 	
 	
 	@DeleteMapping("/eliminaLibro/{idLibro}")

@@ -1,32 +1,43 @@
 package it.rf.biblioteca.DTO;
 
+import java.sql.Date;
 import java.time.LocalDate;
+
 
 public class PrenotazioneDTO {
 	
-	private LocalDate dataInizio;
-	private LocalDate dataFine;
-	private Double acconto;
-	private Double totale;
-	private String username;
-	private String titoloLibro;
+	private Integer idPrenotazione;
+	private Date dataInizio; //pren
+	private Date dataFine; //pren
+	private Double acconto; //pren
+	private Double totale; //pren
+	private String username; //pren - > cfCliente
+	private String titoloLibro; //libro
 	
+	
+	
+	public Integer getIdPrenotazione() {
+		return idPrenotazione;
+	}
+	public void setIdPrenotazione(Integer idPrenotazione) {
+		this.idPrenotazione = idPrenotazione;
+	}
 	public String getTitoloLibro() {
 		return titoloLibro;
 	}
 	public void setTitoloLibro(String titoloLibro) {
 		this.titoloLibro = titoloLibro;
 	}
-	public LocalDate getDataInizio() {
+	public Date getDataInizio() {
 		return dataInizio;
 	}
-	public void setDataInizio(LocalDate dataInizio) {
+	public void setDataInizio(Date dataInizio) {
 		this.dataInizio = dataInizio;
 	}
-	public LocalDate getDataFine() {
+	public Date getDataFine() {
 		return dataFine;
 	}
-	public void setDataFine(LocalDate dataFine) {
+	public void setDataFine(Date dataFine) {
 		this.dataFine = dataFine;
 	}
 	public Double getAcconto() {
@@ -51,15 +62,18 @@ public class PrenotazioneDTO {
 	public PrenotazioneDTO() {
 		
 	}
-	public PrenotazioneDTO(LocalDate dataInizio, LocalDate dataFine, Double acconto, Double totale, String username, String titolo) {
+	public PrenotazioneDTO(Integer idPrenotazione, Date dataInizio, Date dataFine, Double acconto, Double totale,
+			String username, String titoloLibro) {
 		super();
+		this.idPrenotazione = idPrenotazione;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
 		this.acconto = acconto;
 		this.totale = totale;
 		this.username = username;
-		this.titoloLibro=titolo;
+		this.titoloLibro = titoloLibro;
 	}
+	
 	
 	
 }

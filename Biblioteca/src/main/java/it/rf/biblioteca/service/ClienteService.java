@@ -50,5 +50,10 @@ public class ClienteService {
 		return this.cr.findByUsernameCliente(usernameCliente);
 		
 	}
+	
+	public Cliente trovaByCf(String cfCliente)
+	{
+		return this.cr.findById(cfCliente).get();
+	}
 
 }
